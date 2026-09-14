@@ -1,0 +1,52 @@
+{
+  "name": "@resolvingarchitecture/tor-client",
+  "version": "0.1.0",
+  "description": "A local-only Tor client for the RA / 1M5 ecosystem (attaches to a host Tor daemon's SOCKS proxy)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "DESIGN.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "node --import tsx --test test/*.test.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "tor",
+    "socks5",
+    "network",
+    "1m5",
+    "resolving-architecture"
+  ],
+  "author": "Brian Taylor <brian@resolvingarchitecture.io>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/resolvingarchitecture/tor-client-ts.git"
+  },
+  "homepage": "https://resolvingarchitecture.io",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@resolvingarchitecture/ra-common": "file:../../common/ra-common-ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

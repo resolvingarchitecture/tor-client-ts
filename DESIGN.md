@@ -16,14 +16,23 @@ scope cut `tor-client-python` already made.
                                               │
                                       system tor daemon
 
-## No embedded backend
+## No embedded backend (current state - being retired, see TODO.md)
 
 Same reasoning as `tor-client-python`: Rust's `embedded` backend runs
 [Arti](https://gitlab.torproject.org/tpo/core/arti), the Tor Project's
 pure-**Rust** Tor implementation, in-process — there is no Node/TypeScript
-equivalent to embed. So, like `tor-client-java`, this client only ever
-attaches to a Tor instance **installed and running on the host**. No
+equivalent to embed. So, like `tor-client-java` *used to*, this client only
+ever attaches to a Tor instance **installed and running on the host**. No
 `Mode`/`Backend` split, no `ra.tor.mode`/`ra.tor.dataDir` config keys.
+
+**No Node/TypeScript Tor implementation is actually needed to fix this.**
+`tor-client-java` embeds Tor now by downloading and spawning the same official
+C `tor` binary Tor Project itself builds and signs, not by embedding an
+in-language reimplementation - `node:child_process` plus built-in
+`https`/`crypto` (and a shell-out to `tar` for extraction, Node's one real gap
+here - see `TODO.md` P0.5) covers it. Once implemented, "no embedded backend"
+here becomes inaccurate and this section should be rewritten, not just
+amended.
 
 ## Components
 

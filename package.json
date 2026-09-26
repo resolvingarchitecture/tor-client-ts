@@ -1,5 +1,5 @@
 {
-  "name": "@resolvingarchitecture/tor-client",
+  "name": "@resolvingarchitecture/tor",
   "version": "0.1.0",
   "description": "A local-only Tor client for the RA / 1M5 ecosystem (attaches to a host Tor daemon's SOCKS proxy)",
   "type": "module",
@@ -35,7 +35,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/resolvingarchitecture/tor-client-ts.git"
+    "url": "git+https://github.com/resolvingarchitecture/tor-ts.git"
   },
   "homepage": "https://resolvingarchitecture.io",
   "engines": {

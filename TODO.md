@@ -1,4 +1,4 @@
-# tor-client (TypeScript) — TODO
+# tor (TypeScript) — TODO
 
 ## P0 — local client (done)
 
@@ -8,13 +8,13 @@
 - [x] Hand-rolled SOCKS5 CONNECT (no auth) on `node:net`.
 - [x] HTTP/1.1 GET through the SOCKS tunnel; response `Buffer` on
       `envelope.headers["body"]`.
-- [x] Config keys aligned with `tor-client-rust` / `tor-client-python`:
+- [x] Config keys aligned with `tor-rust` / `tor-python`:
       `ra.tor.host`, `ra.tor.socksPort`, `ra.tor.controlPort`,
       `ra.tor.requestTimeoutSecs`.
 
-## P0.5 — Embedded Tor (planned, matching tor-client-java's new model)
+## P0.5 — Embedded Tor (planned, matching tor-java's new model)
 
-`tor-client-java` no longer attaches to a pre-existing Tor daemon at all - it
+`tor-java` no longer attaches to a pre-existing Tor daemon at all - it
 downloads the official Tor Project binary, verifies it, and spawns/owns it
 directly (see its README.md "Trust model" / DESIGN.md "Why embedded"). Not
 started here yet:
@@ -26,7 +26,7 @@ started here yet:
       in this port's own source (never trusted from the network alongside the
       download). Unlike Python/Go, Node has no built-in tar-format reader
       (only `node:zlib`'s gzip layer) - shell out to the system `tar` (matches
-      `tor-client-java`'s own choice) rather than adding an npm dependency.
+      `tor-java`'s own choice) rather than adding an npm dependency.
 - [ ] `EmbeddedTor`-equivalent: spawn via `node:child_process`'s `spawn` with
       a generated `torrc` (`SocksPort auto`, `ControlPort auto`, real
       `CookieAuthentication 1`, `__OwningControllerProcess <our pid>`).
@@ -49,7 +49,7 @@ started here yet:
 ## P2 — Tor control protocol
 
 - [ ] Port `TORControlConnection` / `TORControlCommands` from
-      `tor-client-java` (authenticate with `CookieAuthentication 0` or a
+      `tor-java` (authenticate with `CookieAuthentication 0` or a
       control password).
 - [ ] Async event stream (`SETEVENTS`) → map `CIRC` / `STATUS_CLIENT` onto
       `Status`; live readiness instead of a one-shot probe.
@@ -59,7 +59,7 @@ started here yet:
 
 - [ ] Create or load an onion service key, `ADD_ONION` via the control port.
 - [ ] Accept connections on the HS target port, turn requests into
-      `Envelope`s (mirrors `tor-client-java`'s HS handler).
+      `Envelope`s (mirrors `tor-java`'s HS handler).
 
 ## P4 — privacy hardening
 
@@ -77,8 +77,8 @@ started here yet:
 
 ## Cross-repo
 
-- [ ] Keep `Status` and config keys aligned with `tor-client-java` 1.2.x and
-      `tor-client-rust`'s local backend.
+- [ ] Keep `Status` and config keys aligned with `tor-java` 1.2.x and
+      `tor-rust`'s local backend.
 - [ ] Wire into a future `1m5-core-ts`'s protocol-service adapter, same
       pattern as `NetworkServiceProtocol`/`TorProtocolService` in
       `1m5-core-java` and `1m5-core-rust`.

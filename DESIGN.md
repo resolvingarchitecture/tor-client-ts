@@ -1,11 +1,11 @@
-# tor-client (TypeScript) — Design
+# tor (TypeScript) — Design
 
 A local-only Tor client: attaches to a Tor daemon already running on the
 host via its SOCKS proxy, for use as the Tor **protocol service** by a
 future `1m5-core-ts`. A TypeScript port of the design in
-[`tor-client-java`](https://github.com/resolvingarchitecture/tor-client-java),
-trimmed to the same scope `tor-client-rust`'s *local* backend covers — same
-scope cut `tor-client-python` already made.
+[`tor-java`](https://github.com/resolvingarchitecture/tor-java),
+trimmed to the same scope `tor-rust`'s *local* backend covers — same
+scope cut `tor-python` already made.
 
 ## Where it sits
 
@@ -18,15 +18,15 @@ scope cut `tor-client-python` already made.
 
 ## No embedded backend (current state - being retired, see TODO.md)
 
-Same reasoning as `tor-client-python`: Rust's `embedded` backend runs
+Same reasoning as `tor-python`: Rust's `embedded` backend runs
 [Arti](https://gitlab.torproject.org/tpo/core/arti), the Tor Project's
 pure-**Rust** Tor implementation, in-process — there is no Node/TypeScript
-equivalent to embed. So, like `tor-client-java` *used to*, this client only
+equivalent to embed. So, like `tor-java` *used to*, this client only
 ever attaches to a Tor instance **installed and running on the host**. No
 `Mode`/`Backend` split, no `ra.tor.mode`/`ra.tor.dataDir` config keys.
 
 **No Node/TypeScript Tor implementation is actually needed to fix this.**
-`tor-client-java` embeds Tor now by downloading and spawning the same official
+`tor-java` embeds Tor now by downloading and spawning the same official
 C `tor` binary Tor Project itself builds and signs, not by embedding an
 in-language reimplementation - `node:child_process` plus built-in
 `https`/`crypto` (and a shell-out to `tar` for extraction, Node's one real gap
@@ -51,7 +51,7 @@ body (a `Buffer`) to `envelope.headers["body"]`.
 
 `ra_common.Envelope`'s `headers` field is `Record<string, unknown>` with no
 generic byte-payload slot the way `seda_bus::Envelope` does in Rust — same
-gap `tor-client-python` hit. Rather than force a `DocumentMessage` on every
+gap `tor-python` hit. Rather than force a `DocumentMessage` on every
 caller, this client puts the raw response `Buffer` on
 `envelope.headers["body"]`, keeping the same headers-in/headers-out
 contract (`headers["url"]` in, `headers["error"]` on failure) every port so
@@ -69,7 +69,7 @@ far uses.
 
 ## Config keys
 
-Same names as `tor-client-rust` / `tor-client-python` (`ra.tor.mode`/
+Same names as `tor-rust` / `tor-python` (`ra.tor.mode`/
 `ra.tor.dataDir` dropped — no embedded mode to select): `ra.tor.host`,
 `ra.tor.socksPort`, `ra.tor.controlPort`, `ra.tor.requestTimeoutSecs`.
 
